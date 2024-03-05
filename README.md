@@ -68,3 +68,51 @@ public class OrderServiceImpl implements OrderService {
 }
 ```
 </details>
+
+<details>
+<summary>DIP, OCP 개선(관심자 분리)</summary>
+
+> 배우는 배우의 역할만 충실히 하면 된다. 남배우가 여배우의 캐스팅까지 책임질 필요는 없다.  
+> 이러한 역할 분리를 위한 캐스팅 디렉터가 필요하다.
+
+#### 기존 코드의 문제점
+```java
+public class OrderServiceImpl implements OrderService {
+
+    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
+  ...
+}
+```
+- 서비스 구현부에서는 추상화 객체를 **지향**해야 하고 구체화 객체를 **지양**해야 한다.
+- 그러나, `memberRepository`와 `discountPolicy`의 선언 시 초기화는 각각의 구체화된 객체를 선언한다.
+- 이는 구현체의 의존성까지 가지게 되기에 **DIP** 위반
+
+#### 코드 개선
+```java
+public class AppConfig {
+    public MemberService memberService() {
+        return new MemberServiceImpl(new MemoryMemberRepository());
+    }
+
+    public OrderService orderService() {
+        return new OrderServiceImpl(new MemoryMemberRepository(), new FixDiscountPolicy());
+    }
+}
+```
+- 애플리케이션의 실제 동작에 필요한 구현 객체를 따로 생성하는 [AppConfig](./src/main/java/hjkim/spring_core/AppConfig.java)생성
+- 각 서비스 구현부에서는 생성자를 통한 추상화 초기화로 정리하면 아래와 같이 구체화된 내용은 사라지고 추상화(인터페이스)만 남게 됨.
+
+```java
+public class OrderServiceImpl implements OrderService {
+
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
+
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
+}
+```
+</details>
