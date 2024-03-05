@@ -7,6 +7,7 @@ import hjkim.spring_core.member.MemberService;
 import hjkim.spring_core.member.MemberServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
@@ -24,7 +25,8 @@ public class OrderServiceTest {
 
 
     @Test
-    void 주문_등록() {
+    @DisplayName("주문 등록 테스트 성공 케이스")
+    void createOrderTest() {
         //given
         Long memberId = 1L;
         Member member = new Member(memberId, "memberA", Grade.VIP);
@@ -36,5 +38,4 @@ public class OrderServiceTest {
         //then
         Assertions.assertThat(order.getDiscountPrice()).isEqualTo(1000);
     }
-
 }
