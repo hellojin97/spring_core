@@ -5,17 +5,17 @@ import hjkim.spring_core.member.Member;
 import hjkim.spring_core.member.MemberRepository;
 import hjkim.spring_core.member.MemoryMemberRepository;
 
-public class OrderServiceImpl implements OrderService {
+    public class OrderServiceImpl implements OrderService {
 
-    private final MemberRepository memberRepository;
-    private final DiscountPolicy discountPolicy;
+        private final MemberRepository memberRepository;
+        private final DiscountPolicy discountPolicy;
 
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-        this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
-    }
+        public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+            this.memberRepository = memberRepository;
+            this.discountPolicy = discountPolicy;
+        }
 
-    @Override
+        @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
         Member member = memberRepository.findById(memberId);
         /*
