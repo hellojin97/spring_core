@@ -117,95 +117,77 @@ public class OrderServiceImpl implements OrderService {
 ```
 </details>
 
-
 <details>
 <summary>스프링 컨테이너 생성</summary>
 
 - AppConfig ← `@Configuration` 을 통해 스프링 컨테이너의 구성 정보를 넣는다고 명시
-  - AppConfig 내에 구체화되는 메서드 ← `@Bean`
+  
+  <details>
+  
+  <summary>AppConfig 내에 구체화되는 메서드 ← @Bean</summary>
 
-      ```java
-      @Configuration
-      public class AppConfig {
-          @Bean
-          public MemberService memberService() {
-              return new MemberServiceImpl(getMemberRepository());
-          }
-      
-          @Bean
-          public OrderService orderService() {
-              return new OrderServiceImpl(getMemberRepository(), discountPolicy());
-          }
-      
-          @Bean
-          public MemberRepository getMemberRepository() {
-              return new MemoryMemberRepository();
-          }
-      
-          @Bean
-          public DiscountPolicy discountPolicy() {
-              return new RateDiscountPolicy();
-          }
-      
-      }
-      ```
+    ```java
+    @Configuration
+    public class AppConfig {
+        @Bean
+        public MemberService memberService() {
+            return new MemberServiceImpl(getMemberRepository());
+        }
+    
+        @Bean
+        public OrderService orderService() {
+            return new OrderServiceImpl(getMemberRepository(), discountPolicy());
+        }
+    
+        @Bean
+        public MemberRepository getMemberRepository() {
+            return new MemoryMemberRepository();
+        }
+    
+        @Bean
+        public DiscountPolicy discountPolicy() {
+            return new RateDiscountPolicy();
+        }
+    
+    }
+    ```
 
-- AppConfig ← `@Configuration` 을 통해 스프링 컨테이너의 구성 정보를 넣는다고 명시
-  - AppConfig 내에 구체화되는 메서드 ← `@Bean`
-
-      ```java
-      @Configuration
-      public class AppConfig {
-          @Bean
-          public MemberService memberService() {
-              return new MemberServiceImpl(getMemberRepository());
-          }
-      
-          @Bean
-          public OrderService orderService() {
-              return new OrderServiceImpl(getMemberRepository(), discountPolicy());
-          }
-      
-          @Bean
-          public MemberRepository getMemberRepository() {
-              return new MemoryMemberRepository();
-          }
-      
-          @Bean
-          public DiscountPolicy discountPolicy() {
-              return new RateDiscountPolicy();
-          }
-      
-      }
-      ```
+  </details>
 
 - ApplicationContext : 스프링 컨테이너
-  - AnnotationConfigApplicationContext 인스턴스를 생성하여 AppConfig.class 를 주입
+  
+  <details>
+  <summary>AnnotationConfigApplicationContext 인스턴스를 생성하여 AppConfig.class 를 주입</summary>
 
-      ```java
-      /*
-      ApplicationContext : 스프링 컨테이너
-       */
-      ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
-      MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
-      OrderService orderService = applicationContext.getBean("orderService", OrderService.class);
-      
-      Long memberId = 1L;
-      Member member = new Member(memberId, "memberA", Grade.VIP);
-      memberService.join(member);
-      
-      Order order = orderService.createOrder(memberId, "itemA", 10000);
-      
-      System.out.println("order = " + order); 
-      ```
-
+  ```java
+    /*
+    ApplicationContext : 스프링 컨테이너
+     */
+    ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+    MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
+    OrderService orderService = applicationContext.getBean("orderService", OrderService.class);
+    
+    Long memberId = 1L;
+    Member member = new Member(memberId, "memberA", Grade.VIP);
+    memberService.join(member);
+    
+    Order order = orderService.createOrder(memberId, "itemA", 10000);
+    
+    System.out.println("order = " + order); 
+    ```
     - `AnnotationConfigApplicationContext(AppConfig.class)`
       - AppConfig 내 @Configuration → @Bean 을 인식, Bean 객체들 모두 생성
-  - AppConfig.서비스메서드 → applicationContext.getBean
-
-      ```java
-      MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
-      OrderService orderService = applicationContext.getBean("orderService", OrderService.class);
-      ```
-    - *getBean(”메서드 이름”, 불러오는 타입 클래스)*
+  </details>
+  
+  <details>
+  <summary>AppConfig.서비스메서드 → applicationContext.getBean</summary>
+  
+  ```java
+  MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
+  OrderService orderService = applicationContext.getBean("orderService", OrderService.class);
+  ```
+  - *getBean(”메서드 이름”, 불러오는 타입 클래스)*
+  </details>
+  
+  
 </details>
