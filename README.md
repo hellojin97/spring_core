@@ -70,7 +70,7 @@ public class OrderServiceImpl implements OrderService {
 </details>
 
 <details>
-<summary>DIP, OCP 개선(관심자 분리)</summary>
+  <summary>DIP, OCP 개선(관심자 분리)</summary>
 
 > 배우는 배우의 역할만 충실히 하면 된다. 남배우가 여배우의 캐스팅까지 책임질 필요는 없다.  
 > 이러한 역할 분리를 위한 캐스팅 디렉터가 필요하다.
@@ -189,5 +189,30 @@ public class OrderServiceImpl implements OrderService {
   - *getBean(”메서드 이름”, 불러오는 타입 클래스)*
   </details>
   
-  
+</details>
+<details>
+  <summary>빈 조회하기</summary>
+
+- 테스트 코드 작성
+    - `ApplicationContextBasicFindTest` 를 통해 Bean 조회 테스트
+    - 구체 타입을 테스트
+        ```java
+        @Test
+        @DisplayName("구체 타입으로 조회")
+        void findBeanByName2() {
+            MemberServiceImpl memberService = applicationContext.getBean("memberService", 
+                    MemberServiceImpl.class);
+            assertThat(memberService).isInstanceOf(MemberServiceImpl.class);
+        ```
+        - 모든 자바 코드는 역할과 구현으로 나뉘어져 있음, 그러기에 구체를 생성하여 테스트 진행은 좋지 못하지만 이러한 경험도 중요
+    - 실패 케이스 테스트
+        ```java
+        @Test
+        @DisplayName("빈 이름으로 조회X")
+        void findBeanByNameX() {
+            assertThrows(NoSuchBeanDefinitionException.class,
+                    () -> applicationContext.getBean("xxxx", MemberService.class));
+        }
+        ```
+        - `assertThrows()` →  `import static org.junit.jupiter`
 </details>
