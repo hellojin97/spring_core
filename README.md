@@ -245,3 +245,41 @@ memberService2 = hjkim.spring_core.member.MemberServiceImpl@6fa51cd4
 3. 해당 객체가 딱 1개만 생성되고, 공유하도록 설계하면 됨 -> 싱글톤 패턴
 
 </details>
+<details>
+  <summary>싱글톤 패턴</summary>
+
+#### 싱글톤이 아니라면
+
+  <img alt="img.png" src="assets/pureDiContainer.png" width="400"/>
+
+- 사용자가 `memberService`를 요청할 때마다 새로운 객체 인스턴스가 생성하게 됨
+- 물론 현대 컴퓨터 메모리 성능이 많이 발전하여 크게 문제는 없다지만 대규모 서비스를 펼친다고 하였을 때 <mark style="background: #FF5582A6;">새로운 객체들이 동시에 늘어나게 되면 분명 좋은 설계는 아니라는 것을 알게됨</mark>
+
+#### 싱글톤 패턴 만들어보기
+
+```java
+public class SingletonService {  
+  
+    private static final SingletonService instance = new SingletonService();  
+  
+    public static SingletonService getInstance() {  
+        return instance;  
+    }  
+  
+    private SingletonService() {  
+  
+    }  
+    public void logic() {  
+        System.out.println("싱글톤 객체 로직 호출");  
+    }  
+}
+```
+- 싱글톤, 디자인 패턴 중 하나
+- 클래스 로더를 통해 클래스를 읽어들인 후 실행시킬 때 new 연산자를 통한 객체 생성
+  - `private static final`
+- 이제 인스턴스를 생성 ➡ 클래스 단위로 객체 인스턴스을 받아들임
+- 인스턴스를 조회하는 방법은 `getInstance()`로 확인
+
+<img alt="img.png" src="assets/SpringDIContainer.png" width="400"/>
+
+</details>

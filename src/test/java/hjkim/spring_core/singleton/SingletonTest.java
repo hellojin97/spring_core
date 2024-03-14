@@ -35,4 +35,25 @@ public class SingletonTest {
         3. 해당 객체가 딱 1개만 생성되고, 공유하도록 설계하면 됨 -> 싱글톤 패턴
          */
     }
+
+    @Test
+    @DisplayName("싱글톤 패턴 적용한 객체 테스트")
+    void singletonServiceTest() {
+        SingletonService instance1 = SingletonService.getInstance();
+        SingletonService instance2 = SingletonService.getInstance();
+
+        //참조값 비교
+        System.out.println("instance1 = " + instance1);
+        System.out.println("instance2 = " + instance2);
+
+        /*
+        instance1 = hjkim.spring_core.singleton.SingletonService@2767e23c
+        instance2 = hjkim.spring_core.singleton.SingletonService@2767e23c
+         */
+
+        Assertions.assertThat(instance1).isSameAs(instance2);
+        //same ==
+        //equal
+    }
+
 }
