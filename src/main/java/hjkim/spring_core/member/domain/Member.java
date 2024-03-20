@@ -1,6 +1,7 @@
-package hjkim.spring_core.member;
+package hjkim.spring_core.member.domain;
 
 public class Member {
+
     private Long id;
     private String name;
     private Grade grade;

@@ -3,11 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="memberService" class="hjkim.spring_core.member.MemberServiceImpl">
+    <bean id="memberService" class="hjkim.spring_core.member.service.MemberServiceImpl">
         <constructor-arg name="memberRepository" ref="memberRepository"/>
     </bean>
 
-    <bean id="memberRepository" class="hjkim.spring_core.member.MemoryMemberRepository"/>
+    <bean id="memberRepository" class="hjkim.spring_core.member.repository.MemoryMemberRepository"/>
 
     <bean id="orderService" class="hjkim.spring_core.order.OrderServiceImpl">
         <constructor-arg name="memberRepository" ref="memberRepository"/>
