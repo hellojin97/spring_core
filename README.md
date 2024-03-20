@@ -4,16 +4,19 @@
 - Java 21, Spring 3.2.3
 ### 목적
 Dependency 가 존재하지 않는 Spring을 통해 객체지향의 이해 및 Spring 전반적인 핵심 내용을 이해
-### 비즈니스 요구사항과 설계
-#### 회원 도메인 설계
+
+### 회원 도메인 설계
 - 회원 도메인 협력 관계
   - <img alt="img.png" src="assets/img.png" width="500"/>
 - 회원 클래스 다이어그램
   - <img alt="img_1.png" src="assets/img_1.png" width="500"/>
 - 회원 객체 다이어그램
   - <img alt="img_2.png" src="assets/img_2.png" width="500"/>
-#### 실제 설계
-<img alt="img.png" src="member_tree.png" width="300"/>
+
+<details>
+    <summary>회원 도메인 실제 설계</summary>
+
+<img alt="img.png" src="assets/member_tree.png" width="300"/>
 
 - `domain` : `Member DTO` 객체와 회원 등급을 가리키는 `Enum Class Grade`
 - `repository` : 다형성을 위한 `MemberRpository interface` 와 기능 구현을 위한 `MemoryMemberRepository`
@@ -22,3 +25,15 @@ Dependency 가 존재하지 않는 Spring을 통해 객체지향의 이해 및 S
       ```java
       private final MemberRepository memberRepository = new MemoryMemberRepository();
       ```
+</details>
+
+#### 회원 도메인 설계의 문제점
+- 다른 저장소를 변경할 때 OCP원칙을 준수할까?
+- DIP또한 지키고 있을까?
+    - [추상화에도 의존하고 구체화에도 의존한다.](./src/main/java/hjkim/spring_core/member/service/MemberServiceImpl.java)
+    ```Java
+    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    ```
+---
+
+### 주문과 할인 도메인 설계
