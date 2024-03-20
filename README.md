@@ -6,15 +6,20 @@
 Dependency 가 존재하지 않는 Spring을 통해 객체지향의 이해 및 Spring 전반적인 핵심 내용을 이해
 
 ### 회원 도메인 설계
-- 회원 도메인 협력 관계
-  - <img alt="img.png" src="assets/img.png" width="500"/>
-- 회원 클래스 다이어그램
-  - <img alt="img_1.png" src="assets/img_1.png" width="500"/>
-- 회원 객체 다이어그램
-  - <img alt="img_2.png" src="assets/img_2.png" width="500"/>
 
 <details>
-    <summary>회원 도메인 실제 설계</summary>
+    <summary>회원 도메인 다이어그램 설계</summary>
+
+- 회원 도메인 협력 관계
+    - <img alt="img.png" src="assets/img.png" width="500"/>
+- 회원 클래스 다이어그램
+    - <img alt="img_1.png" src="assets/img_1.png" width="500"/>
+- 회원 객체 다이어그램
+    - <img alt="img_2.png" src="assets/img_2.png" width="500"/>
+</details>
+
+<details>
+    <summary>회원 도메인 로직 설계</summary>
 
 <img alt="img.png" src="assets/member_tree.png" width="300"/>
 
